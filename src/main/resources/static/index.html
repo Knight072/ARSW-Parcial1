@@ -38,7 +38,7 @@
 
 <script>
     function loadPostMsg(name){
-        let url = "/hellopost?name=" + name.value;
+        let url = "/api/get" + name.value;
 
         fetch (url, {method: 'POST'})
             .then(x => x.text())

@@ -1,8 +1,6 @@
 package edu.escuelaing.arsw.controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,7 +38,7 @@ public class ApiController {
                 }
                 in.close();
 
-                return response.toString();
+                System.out.println( response.toString());
             } else {
                 System.out.println("GET request not worked");
             }
