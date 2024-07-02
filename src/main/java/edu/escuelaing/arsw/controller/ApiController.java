@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class ApiController {
 
