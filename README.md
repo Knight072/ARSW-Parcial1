@@ -19,13 +19,7 @@ El proyecto sigue una arquitectura básica de aplicaciones web utilizando Java, 
 - **Cliente JS**: `index.html`
   - Esta plantilla HTML utiliza scripts para poder enviar la petición get por medio de un form para obtener los resultados de la api.
 
-- **Despliegue en AWS EC2**:
-  - La aplicación está desplegada en un servidor EC2 de AWS.
-  - Se accede a la aplicación a través de la IP pública o el nombre de dominio asignado al servidor EC2.
     
-![image](https://github.com/Knight072/ARSW-Lab3/assets/116401447/62a85e07-c27f-4f5f-b0fd-0c7469059a03)
-
-
 ### Uso
 
 1. **Configuración**:
