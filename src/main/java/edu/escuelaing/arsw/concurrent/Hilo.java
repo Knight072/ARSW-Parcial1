@@ -10,60 +10,51 @@ public class Hilo extends Thread {
     private int id;
     private String empresa;
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "http://localhost:8080/api/get/";
+    private static final String BASE_URL = "http://localhost:8080/api/get/";
 
     public Hilo(int id, String empresa) {
-        this.empresa = empresa;
         this.id = id;
+        this.empresa = empresa;
     }
-
-    public void getMethod() throws IOException{
-        try {
-            URL obj = new URL(GET_URL+empresa);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("User-Agent", USER_AGENT);
-
-            //The following invocation perform the connection implicitly before getting the code
-            int responseCode = con.getResponseCode();
-            System.out.println("GET Response Code :: " + responseCode);
-
-            if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                //System.out.println( response.toString());
-            } else {
-                System.out.println("GET request not worked");
-            }
-            System.out.println("GET DONE: "+empresa);
-
-        } catch (
-                IOException e) {
-        }
-
-        System.out.println("Cerro el thread: " + id);
-
-        System.out.println( "GET request not worked: "+ empresa);
-    }
-
 
     @Override
     public void run() {
-        System.out.println("Corrio el thread " + id);
+        System.out.println("Thread " + id + " started for company: " + empresa);
         try {
-            getMethod();
+            String response = executeGetRequest(empresa);
+            // Aquí puedes manejar o procesar la respuesta según sea necesario
+            System.out.println("Response received for " + empresa + ": " + response);
         } catch (IOException e) {
-            System.err.println("Could not get petition");
-            System.exit(1);
+            System.err.println("Error executing GET request for " + empresa + ": " + e.getMessage());
+        } finally {
+            System.out.println("Thread " + id + " ended for company: " + empresa);
         }
     }
 
+    private String executeGetRequest(String empresa) throws IOException {
+        URL url = new URL(BASE_URL + empresa);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        System.out.println("GET Response Code for " + empresa + " :: " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return response.toString();
+        } else {
+            System.out.println("GET request failed for " + empresa);
+            return null;
+        }
+    }
 }
+
 
