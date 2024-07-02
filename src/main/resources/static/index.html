@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>Form Example</title>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             document.getElementById("getrespmsg").innerHTML =
             this.responseText;
         }
-        xhttp.open("GET", "/hello?name="+nameVar);
+        xhttp.open("GET", "/api/get/"+nameVar);
         xhttp.send();
     }
 </script>
